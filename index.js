@@ -4,7 +4,7 @@ import { sendJsonResponse } from './utils/utils.js'
 import { filteredData } from './utils/filteredData.js'
 import { getDataByQueryParams } from './utils/getDataByQueryParams.js'
 
-const PORT = 8000
+const PORT = process.env.PORT || 8000;
 
 const server = http.createServer( async (req, res)=>{
     const destinations = await getDataFromDB()
@@ -43,4 +43,4 @@ const server = http.createServer( async (req, res)=>{
    
 })
 
-server.listen(PORT, ()=>console.log(`server is connected on port ${8000}`))
+server.listen(PORT, "0.0.0.0", ()=>console.log(`server is connected on port ${PORT}`))
