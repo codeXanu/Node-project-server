@@ -3,6 +3,7 @@ import { getDataFromDB } from './database/db.js'
 import { sendJsonResponse } from './utils/utils.js'
 import { filteredData } from './utils/filteredData.js'
 import { getDataByQueryParams } from './utils/getDataByQueryParams.js'
+import { experiments } from './database/experiment.js'
 
 const PORT = process.env.PORT || 3000;
 
@@ -32,8 +33,10 @@ const server = http.createServer( async (req, res)=>{
 
         const resultData = filteredData(destinations, 'country',apiCountry)
         sendJsonResponse(res, 200, resultData)
-    }
-    else {
+    } else if (req.url === '/api/experiments' && req.method === 'GET') {
+        sendJsonResponse(res, 200, experiments);
+    
+    } else {
         sendJsonResponse(res, 404, {
             error: 'not found',
             message: 'The  requested route does not exist'
